@@ -1,8 +1,13 @@
-import canvas from './canvas.svelte'
-import { render } from '@testing-library/svelte'
+import canvas from './canvas.svelte';
+import { render } from '@testing-library/svelte';
+import * as THREE from 'three';
+
+import createCamera from '../../utils/test-utils';
 
 it('it works', async () => {
-  const { getByText } = render(canvas)
+  const camera = createCamera();
 
-  expect(getByText('Hello component!'));
-})
+  expect(camera).toBeInstanceOf(THREE.PerspectiveCamera);
+});
+
+// still taking a look at how i can mock three's api
