@@ -1,6 +1,133 @@
 {
   "version": 2,
-  "projects": {},
+  "projects": {
+    "feature-threejs": {
+      "root": "libs/feature-threejs",
+      "sourceRoot": "libs/feature-threejs/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/feature-threejs/**/*.{ts,svelte,spec.ts}"
+            ]
+          }
+        },
+        "check": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "command": "svelte-check",
+            "cwd": "libs/feature-threejs"
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/feature-threejs"],
+          "options": {
+            "jestConfig": "libs/feature-threejs/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "threejs": {
+      "root": "apps/threejs",
+      "sourceRoot": "apps/threejs/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nxext/svelte:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/threejs",
+            "entryFile": "apps/threejs/src/main.ts",
+            "tsConfig": "apps/threejs/tsconfig.app.json",
+            "svelteConfig": "apps/threejs/svelte.config.cjs",
+            "assets": [
+              {
+                "glob": "/*",
+                "input": "apps/threejs/public/**",
+                "output": "./"
+              }
+            ]
+          },
+          "configurations": {
+            "production": {
+              "dev": false
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nxext/svelte:build",
+          "options": {
+            "outputPath": "dist/apps/threejs",
+            "entryFile": "apps/threejs/src/main.ts",
+            "tsConfig": "apps/threejs/tsconfig.app.json",
+            "svelteConfig": "apps/threejs/svelte.config.cjs",
+            "assets": [
+              {
+                "glob": "/*",
+                "input": "apps/threejs/public/**",
+                "output": "./"
+              }
+            ],
+            "watch": true,
+            "serve": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/threejs/**/*.{ts,svelte,spec.ts}"]
+          }
+        },
+        "check": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "command": "svelte-check",
+            "cwd": "apps/threejs"
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/threejs"],
+          "options": {
+            "jestConfig": "apps/threejs/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "threejs-e2e": {
+      "root": "apps/threejs-e2e",
+      "sourceRoot": "apps/threejs-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/threejs-e2e/cypress.json",
+            "devServerTarget": "threejs:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "threejs:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/threejs-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    }
+  },
   "cli": {
     "defaultCollection": "@nrwl/workspace"
   }

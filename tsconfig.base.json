@@ -14,7 +14,9 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@practice/feature-threejs": ["libs/feature-threejs/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
